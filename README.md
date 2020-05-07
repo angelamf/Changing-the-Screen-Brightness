@@ -1,0 +1,1 @@
+# Alterando-Luminosidade-no-Windows
