@@ -4,3 +4,5 @@
 ![Esquemático](https://www.aranacorp.com/wp-content/uploads/pr-sensor-scheme_bb.png)
 
 > No Windows, o *script* pega automaticamente as informações de vídeo para controle do brilho da tela com computador a partir de um arquivo.
+
+> No Linux, o *script* pega o nome do display ativo automaticamente.

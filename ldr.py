@@ -1,4 +1,5 @@
-from os import system, remove
+from os import popen, remove
+from sys import platform
 from serial import Serial
 import serial.tools.list_ports
 
@@ -18,14 +19,19 @@ def getValue():
 
 
 def setBrightness(value):
-    system('powercfg -q > a.txt')
-    file = open('a.txt', 'r')
-    a = getGUID(file, 'Esquema de Energia')
-    b = getGUID(file, '(V')
-    c = getGUID(file, '(Brilho do v')
-    remove('a.txt')
-    system(f'powercfg -setacvalueindex {a} {b} {c} {value}')
-    system(f'powercfg -s {a}')
+    if 'win' in platform:
+        popen('powercfg -q > a.txt')
+        file = open('a.txt', 'r')
+        a = getGUID(file, 'Esquema de Energia')
+        b = getGUID(file, '(V')
+        c = getGUID(file, '(Brilho do v')
+        remove('a.txt')
+        popen(f'powercfg -setacvalueindex {a} {b} {c} {value}')
+        popen(f'powercfg -s {a}')
+    elif 'linux' in platform:
+        a = popen("xrandr -q | grep ' connected' | head -n 1 | cut -d ' ' -f1").read().rstrip('\n')
+        print(f'xrandr --output {a} --brightness {value / 100:.2f}')
+        popen(f'xrandr --output {a} --brightness {value / 100:.2f}')
 
 
 # Corpo Principal
