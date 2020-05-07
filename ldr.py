@@ -1,10 +1,34 @@
-from os import system
+from os import system, remove
 from serial import Serial
+import serial.tools.list_ports
 
-portaSerial = Serial('COM4', 9600)
+SERIAL_PORT = serial.tools.list_ports.comports()[-1]  # Pega a última porta Serial da lista ativa
+BAUD_RATE = 9600
+connection = Serial(SERIAL_PORT.device, BAUD_RATE)
+
+
+def getGUID(f, key):
+    for line in f:
+        if key in line:
+            return line[line.index(': ') + 2:line.rindex(' (') - 1]
+
+
+def getValue():
+    return int(int(connection.readline().decode()) * 100 / 1024)
+
+
+def setBrightness(value):
+    system('powercfg -q > a.txt')
+    file = open('a.txt', 'r')
+    a = getGUID(file, 'Esquema de Energia')
+    b = getGUID(file, '(V')
+    c = getGUID(file, '(Brilho do v')
+    remove('a.txt')
+    system(f'powercfg -setacvalueindex {a} {b} {c} {value}')
+    system(f'powercfg -s {a}')
+
+
+# Corpo Principal
 while True:
-    intensidade = int(portaSerial.readline().decode())
-    intensidade = int(intensidade*100/1024)
-    print(intensidade)
-    system(f'powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 aded5e82-b909-4619-9949-f5d71dac0bcb {intensidade}')
-    system('powercfg -s 381b4222-f694-41f0-9685-ff5bb260df2e')
+    val = getValue()
+    setBrightness(val)
