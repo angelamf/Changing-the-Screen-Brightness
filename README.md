@@ -1,5 +1,5 @@
 # :mask: :coffee: :computer: Quarentine Project #0 - Automatic brightness adjustment according to external brightness.
-[![GitHub author](https://img.shields.io/badge/author-angelamf-ff0080?style=flat-square)](https://github.com/angelamf)
+![GitHub author](https://img.shields.io/badge/author-angelamf_and_lucas26xd-ff0080?style=flat-square)
 [![GitHub last commit](https://img.shields.io/github/last-commit/angelamf/Changing-the-Screen-Brightness?color=ff0080&style=flat-square)](../../commits/master)
 ![GitHub repo size](https://img.shields.io/github/repo-size/angelamf/Changing-the-Screen-Brightness?color=ff0080&style=flat-square)
 [![GitHub license](https://img.shields.io/github/license/angelamf/Changing-the-Screen-Brightness?color=ff0080&style=flat-square)](LICENSE)
